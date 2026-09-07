@@ -1,4 +1,5 @@
 import 'package:crafty_bay/app/provider/locale_provider.dart';
+import 'package:crafty_bay/app/provider/theme_provider.dart';
 import 'package:crafty_bay/features/auths/presentation/widgets/app_logo.dart';
 import 'package:crafty_bay/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
               Spacer(),
               AppLogo(),
               LocaleChangerDropDown(),
+              ThemeChangerDropdown(),
               Spacer(),
               CircularProgressIndicator(),
               const SizedBox(height: 16),
@@ -57,6 +59,32 @@ class LocaleChangerDropDown extends StatelessWidget {
             localeProvider.changeLocale(newLocale);
           }
         });
+      },
+    );
+  }
+}
+
+class ThemeChangerDropdown extends StatelessWidget {
+  const ThemeChangerDropdown({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ThemeProvider>(
+      builder: (context, themeProvider, _) {
+        return DropdownButton<ThemeMode>(
+          value: themeProvider.currentThemeMode,
+          items: themeProvider.themeModes.map((e) {
+            return DropdownMenuItem(
+              value: e,
+              child: Text(e.toString().toUpperCase()),
+            );
+          }).toList(),
+          onChanged: (ThemeMode? newThemeMode) {
+            if (newThemeMode != null) {
+              themeProvider.changeTheme(newThemeMode);
+            }
+          },
+        );
       },
     );
   }

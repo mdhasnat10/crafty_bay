@@ -28,3 +28,9 @@ Future<void> main() async {
   };
   runApp(const CraftyBayApp());
 }
+
+
+
+
+
+// M 26 / time 1:10 min
